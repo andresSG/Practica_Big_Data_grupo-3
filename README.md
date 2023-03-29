@@ -3,8 +3,7 @@ School of tech, big data and cloud
 
 ## Repository estructure
 
-In this repository there are 3 directory paths
-Every single path has it's own use case
+In this repository there are 3 directory paths:
 
 ### GlueJobs
 All the programmatic jobs of this project are develop for GlueJobs. Therefore, all the files are jupyter notebooks ready to import in GlueStudio.
