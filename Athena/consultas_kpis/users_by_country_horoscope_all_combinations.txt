@@ -1,0 +1,28 @@
+SELECT
+  list_horoscopes_countries.country country
+, list_horoscopes_countries.horoscope horoscope
+, (CASE WHEN (users_by_horoscope_and_country.total_users IS NULL) THEN 0 ELSE users_by_horoscope_and_country.total_users END) total_users
+FROM
+  ((
+   SELECT
+     country
+   , horoscope
+   FROM
+     (dim_countries countries
+   CROSS JOIN (
+      SELECT DISTINCT horoscope
+      FROM
+        dim_horoscopes
+   ) )
+   WHERE (countries.country IS NOT NULL)
+)  list_horoscopes_countries
+LEFT JOIN (
+   SELECT
+     country
+   , horoscope
+   , count(user_id) total_users
+   FROM
+     dim_users
+   GROUP BY country, horoscope
+)  users_by_horoscope_and_country ON ((list_horoscopes_countries.horoscope = users_by_horoscope_and_country.horoscope) AND (list_horoscopes_countries.country = users_by_horoscope_and_country.country)))
+ORDER BY country ASC
