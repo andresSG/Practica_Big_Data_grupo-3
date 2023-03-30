@@ -1,0 +1,15 @@
+SELECT
+  continent
+, sum(total_facts) total_facts_by_continent
+FROM
+  (dim_users users
+INNER JOIN (
+   SELECT
+     user_id
+   , count(*) total_facts
+   FROM
+     facts_user
+   GROUP BY user_id
+)  facts_by_user ON (facts_by_user.user_id = users.user_id))
+GROUP BY continent
+ORDER BY total_facts_by_continent DESC

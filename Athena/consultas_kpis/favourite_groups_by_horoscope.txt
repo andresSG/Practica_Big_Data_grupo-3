@@ -1,0 +1,21 @@
+SELECT
+  horoscope
+, group_name
+, count(*) total_repeats
+FROM
+  (
+   SELECT
+     users.user_id
+   , users.horoscope
+   , group_name
+   FROM
+     (dim_users users
+   INNER JOIN facts_user facts ON (facts.user_id = users.user_id))
+   WHERE (users.horoscope IN (SELECT horoscope
+FROM
+  most_recurrent_horoscope
+))
+   ORDER BY users.user_id ASC
+)  most_recurrent_horoscope_facts
+GROUP BY horoscope, most_recurrent_horoscope_facts.group_name
+ORDER BY count(*) DESC

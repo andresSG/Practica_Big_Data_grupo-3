@@ -1,0 +1,8 @@
+SELECT
+  country_name country
+, horoscope
+, count(*) total_users
+FROM
+  dim_users
+GROUP BY country_name, horoscope
+ORDER BY country_name ASC
