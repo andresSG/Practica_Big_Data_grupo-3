@@ -1,0 +1,7 @@
+SELECT
+  continent
+, count(user_id) total_users
+FROM
+  dim_users
+GROUP BY continent
+ORDER BY total_users DESC

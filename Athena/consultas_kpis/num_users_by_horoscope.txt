@@ -1,0 +1,7 @@
+SELECT
+  horoscope
+, count(*) total_users
+FROM
+  dim_users
+GROUP BY horoscope
+ORDER BY count(*) DESC
